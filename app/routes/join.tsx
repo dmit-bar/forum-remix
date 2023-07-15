@@ -13,6 +13,8 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({});
 };
 
+// TODO redo everything
+
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const email = formData.get("email");
