@@ -11,7 +11,7 @@ const Harness = () => {
         </GeneralLink>
       </div>
       <Crumbs className="py-1" />
-      <main className="flex-1 border border-gray-300 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
       <div className="flex justify-center">

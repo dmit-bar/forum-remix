@@ -6,7 +6,7 @@ const sectionIconMapper = (iconType: string) => {
   const size = "48px";
 
   switch (iconType) {
-    case "tv_movies":
+    case "tv-movies":
       return <SvgTvFilm width={size} height={size} />;
     case "music":
       return <SvgMusic width={size} height={size} />;

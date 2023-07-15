@@ -1,5 +1,5 @@
 import { json, type LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Button } from "~/components/atoms";
 import { type Crumb } from "~/components/molecules";
@@ -35,7 +35,7 @@ const SelectedSection = () => {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="w-full h-full flex bg-gray-50 flex-col">
+    <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
       {data.topics.length ? (
         data.topics.map((topic) => <div key={topic.id}>{topic.title}</div>)
       ) : (
@@ -46,7 +46,9 @@ const SelectedSection = () => {
                 No topics in this section.
               </span>
               <div className="mx-auto mt-4">
-                <Button>Create a new topic</Button>
+                <Link to="new-topic">
+                  <Button>Create a new topic</Button>
+                </Link>
               </div>
             </div>
           </div>

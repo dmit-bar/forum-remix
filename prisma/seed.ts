@@ -28,7 +28,7 @@ async function seed() {
     .create({
       data: {
         title: "TV & Movies",
-        link: "tv_movies",
+        link: "tv-movies",
         description: "Talk about movies and TV please",
       },
     })

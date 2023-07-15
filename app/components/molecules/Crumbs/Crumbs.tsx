@@ -15,9 +15,11 @@ const Crumbs = ({ className }: CrumbsProps) => {
 
   const matchesWithCrumbs = matches.filter((match) => match.handle?.crumbs);
   const lastMatch = matchesWithCrumbs[matchesWithCrumbs.length - 1];
-  const crumbs: Crumb[] = lastMatch?.handle?.crumbs(lastMatch?.data);
+  const crumbs: Crumb[] | undefined = lastMatch?.handle?.crumbs(
+    lastMatch?.data
+  );
 
-  return (
+  return crumbs ? (
     <div className={className}>
       {crumbs.map((crumb: Crumb, idx, array) => {
         return (
@@ -36,7 +38,7 @@ const Crumbs = ({ className }: CrumbsProps) => {
         );
       })}
     </div>
-  );
+  ) : null;
 };
 
 export { Crumbs };
