@@ -1,4 +1,5 @@
-import { json, type LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Button } from "~/components/atoms";
@@ -20,15 +21,36 @@ export const loader = async ({ params }: LoaderArgs) => {
 };
 
 export const handle = {
-  crumbs: (data: { section: { title: string; link: string } }) => {
+  crumbs: (data: { section: { title: string; sectionId: string } }) => {
     const root: Crumb = { route: "sections", title: "Sections" };
     const selectedSection: Crumb = {
-      route: `sections/${data.section.link}`,
+      route: `sections/${data.section.sectionId}`,
       title: data.section.title,
     };
 
     return [root, selectedSection];
   },
+};
+
+export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
+  if (!data) {
+    return [
+      { title: "Missing Section" },
+      {
+        name: "description",
+        content: `There is no section with the ID of ${params.sectionId}. 😢`,
+      },
+    ];
+  }
+
+  const { section } = data;
+  return [
+    { title: section?.title },
+    {
+      name: "description",
+      content: section?.description,
+    },
+  ];
 };
 
 const SelectedSection = () => {

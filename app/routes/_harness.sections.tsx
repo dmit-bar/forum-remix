@@ -23,9 +23,9 @@ const Sections = () => {
       {data.sections.map((section, idx, array) => (
         <Section
           className={array.length === idx + 1 ? "border-b-0" : "border-b"}
-          key={section.link}
+          key={section.sectionId}
           title={section.title}
-          link={section.link}
+          link={section.sectionId}
           description={section.description}
         />
       ))}

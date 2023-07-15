@@ -28,7 +28,7 @@ model Password {
 model Section {
   id          String @id @default(cuid())
   title       String
-  link        String
+  sectionId   String @unique
   description String
 
   topics Topic[]

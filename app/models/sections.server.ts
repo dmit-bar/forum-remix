@@ -8,7 +8,7 @@ const getAllSections = async () => {
 };
 
 const getSectionInfo = async (sectionId: string) => {
-  return await prisma.section.findFirst({ where: { link: sectionId } });
+  return await prisma.section.findFirst({ where: { sectionId } });
 };
 
 const getAllTopicsForSection = async (sectionId: string) => {

@@ -4,21 +4,36 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function seed() {
-  const login = "ivanov1337";
+  const loginIvanov = "ivanov1337";
+  const loginAcidBurn = "acid_burn";
 
   // cleanup the existing database
-  await prisma.user.delete({ where: { login } }).catch(() => {
+  await prisma.user.delete({ where: { login: loginIvanov } }).catch(() => {
+    // no worries if it doesn't exist yet
+  });
+  await prisma.user.delete({ where: { login: loginAcidBurn } }).catch(() => {
     // no worries if it doesn't exist yet
   });
 
-  const hashedPassword = await bcrypt.hash("ivanov1337", 10);
+  const hashedPasswordIvanov = await bcrypt.hash(loginIvanov, 10);
+  const hashedPasswordAcidBurn = await bcrypt.hash(loginAcidBurn, 10);
 
   await prisma.user.create({
     data: {
-      login,
+      login: loginIvanov,
       password: {
         create: {
-          hash: hashedPassword,
+          hash: hashedPasswordIvanov,
+        },
+      },
+    },
+  });
+  await prisma.user.create({
+    data: {
+      login: loginAcidBurn,
+      password: {
+        create: {
+          hash: hashedPasswordAcidBurn,
         },
       },
     },
@@ -28,7 +43,7 @@ async function seed() {
     .create({
       data: {
         title: "TV & Movies",
-        link: "tv-movies",
+        sectionId: "tv-movies",
         description: "Talk about movies and TV please",
       },
     })
@@ -39,7 +54,7 @@ async function seed() {
     .create({
       data: {
         title: "Music",
-        link: "music",
+        sectionId: "music",
         description: "Talk about music please",
       },
     })
@@ -50,7 +65,7 @@ async function seed() {
     .create({
       data: {
         title: "Books",
-        link: "books",
+        sectionId: "books",
         description: "Talk about books please",
       },
     })
