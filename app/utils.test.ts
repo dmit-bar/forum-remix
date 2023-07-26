@@ -1,13 +1,13 @@
-import { validateEmail } from "./utils";
+import { validateLogin } from "./utils";
 
 test("validateEmail returns false for non-emails", () => {
-  expect(validateEmail(undefined)).toBe(false);
-  expect(validateEmail(null)).toBe(false);
-  expect(validateEmail("")).toBe(false);
-  expect(validateEmail("not-an-email")).toBe(false);
-  expect(validateEmail("n@")).toBe(false);
+  expect(validateLogin(undefined)).toBe(false);
+  expect(validateLogin(null)).toBe(false);
+  expect(validateLogin("")).toBe(false);
+  expect(validateLogin("not-an-email")).toBe(false);
+  expect(validateLogin("n@")).toBe(false);
 });
 
 test("validateEmail returns true for emails", () => {
-  expect(validateEmail("kody@example.com")).toBe(true);
+  expect(validateLogin("kody@example.com")).toBe(true);
 });

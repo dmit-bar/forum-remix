@@ -21,21 +21,13 @@ async function seed() {
   await prisma.user.create({
     data: {
       login: loginIvanov,
-      password: {
-        create: {
-          hash: hashedPasswordIvanov,
-        },
-      },
+      hashedPassword: hashedPasswordIvanov,
     },
   });
   await prisma.user.create({
     data: {
       login: loginAcidBurn,
-      password: {
-        create: {
-          hash: hashedPasswordAcidBurn,
-        },
-      },
+      hashedPassword: hashedPasswordAcidBurn,
     },
   });
 

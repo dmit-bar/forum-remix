@@ -25,7 +25,7 @@ const GeneralLink = ({
             view === "primary",
         },
         {
-          "text-gray-900 hover:text-gray-700 active:text-gray-950":
+          "text-gray-950 hover:text-gray-700 active:text-gray-950":
             view === "secondary",
         },
         {

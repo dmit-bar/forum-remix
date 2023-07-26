@@ -1,4 +1,4 @@
-import type { Password, User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "~/db.server";
@@ -9,54 +9,48 @@ export async function getUserById(id: User["id"]) {
   return prisma.user.findUnique({ where: { id } });
 }
 
-export async function getUserByEmail(email: User["email"]) {
-  return prisma.user.findUnique({ where: { email } });
+export async function getUserByLogin(login: User["login"]) {
+  return prisma.user.findUnique({ where: { login } });
 }
 
-export async function createUser(email: User["email"], password: string) {
+export async function createUser(login: User["login"], password: string) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   return prisma.user.create({
     data: {
-      email,
-      password: {
-        create: {
-          hash: hashedPassword,
-        },
-      },
+      login,
+      hashedPassword,
     },
   });
 }
 
-export async function deleteUserByEmail(email: User["email"]) {
-  return prisma.user.delete({ where: { email } });
+export async function deleteUserByLogin(login: User["login"]) {
+  return prisma.user.delete({ where: { login } });
 }
 
 export async function verifyLogin(
-  email: User["email"],
-  password: Password["hash"]
+  login: User["login"],
+  password: User["hashedPassword"]
 ) {
   const userWithPassword = await prisma.user.findUnique({
-    where: { email },
-    include: {
-      password: true,
-    },
+    where: { login },
   });
 
-  if (!userWithPassword || !userWithPassword.password) {
+  if (!userWithPassword || !userWithPassword.hashedPassword) {
     return null;
   }
 
   const isValid = await bcrypt.compare(
     password,
-    userWithPassword.password.hash
+    userWithPassword.hashedPassword
   );
 
   if (!isValid) {
     return null;
   }
 
-  const { password: _password, ...userWithoutPassword } = userWithPassword;
+  const { hashedPassword: _password, ...userWithoutPassword } =
+    userWithPassword;
 
   return userWithoutPassword;
 }

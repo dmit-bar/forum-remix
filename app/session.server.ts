@@ -13,7 +13,7 @@ export const sessionStorage = createCookieSessionStorage({
     path: "/",
     sameSite: "lax",
     secrets: [process.env.SESSION_SECRET],
-    secure: process.env.NODE_ENV === "production",
+    secure: true /* process.env.NODE_ENV === "production" */,
   },
 });
 
@@ -76,6 +76,9 @@ export async function createUserSession({
 }) {
   const session = await getSession(request);
   session.set(USER_SESSION_KEY, userId);
+
+  console.log({ session });
+
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session, {
@@ -89,6 +92,9 @@ export async function createUserSession({
 
 export async function logout(request: Request) {
   const session = await getSession(request);
+
+  console.log({ desses: await sessionStorage.destroySession(session) });
+
   return redirect("/", {
     headers: {
       "Set-Cookie": await sessionStorage.destroySession(session),
