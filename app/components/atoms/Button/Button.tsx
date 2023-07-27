@@ -9,6 +9,7 @@ interface ButtonProps {
     | "primary-small"
     | "secondary-default"
     | "secondary-small"
+    | "link"
     | "link-default"
     | "link-small";
   className?: string;
@@ -37,7 +38,7 @@ const Button = ({
             "text-sm py-1 px-3": view.includes("small"),
           },
           {
-            "border-transparent text-gray-950 hover:text-gray-700 active:text-gray-950":
+            "border-transparent p-0 text-gray-950 hover:text-gray-700 active:text-gray-950":
               view.includes("link"),
           },
           {

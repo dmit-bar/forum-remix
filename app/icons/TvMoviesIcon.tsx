@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgTvMovies = (props: SVGProps<SVGSVGElement>) => (
+const SvgTvMoviesIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
@@ -186,4 +186,4 @@ const SvgTvMovies = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 );
-export default SvgTvMovies;
+export default SvgTvMoviesIcon;

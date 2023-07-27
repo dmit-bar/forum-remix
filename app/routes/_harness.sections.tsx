@@ -1,6 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import type { Crumb } from "~/components/molecules/Crumbs/Crumbs";
-import { Section } from "~/components/organisms";
+import { SectionLink } from "~/components/organisms";
 import { getAllSections } from "~/models/sections.server";
 
 export const loader = async () => {
@@ -21,7 +21,7 @@ const Sections = () => {
   return (
     <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
       {data.sections.map((section, idx, array) => (
-        <Section
+        <SectionLink
           className={array.length === idx + 1 ? "border-b-0" : "border-b"}
           key={section.sectionId}
           title={section.title}

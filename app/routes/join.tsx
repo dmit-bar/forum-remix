@@ -126,7 +126,7 @@ export default function Join() {
               <GeneralLink
                 className="font-medium"
                 to={{
-                  pathname: "/join",
+                  pathname: "/login",
                   search: searchParams.toString(),
                 }}
               >

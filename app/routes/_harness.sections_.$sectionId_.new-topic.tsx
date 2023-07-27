@@ -1,9 +1,14 @@
-import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
+import { useRef } from "react";
 
 import invariant from "tiny-invariant";
+import { Button, Textarea, Textfield } from "~/components/atoms";
 import type { Crumb } from "~/components/molecules";
 import { getSectionInfo } from "~/models/sections.server";
+import { createTopic } from "~/models/topics.server";
+import { getUser } from "~/session.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
   invariant(params.sectionId, "params.sectionId is required");
@@ -47,13 +52,109 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
   ];
 };
 
-const NewTopic = () => {
-  // const data = useLoaderData<typeof loader>();
+export const action = async ({ request, params, context }: ActionArgs) => {
+  const formData = await request.formData();
+  const title = formData.get("title");
+  const description = formData.get("description")?.toString() || "";
+  const post = formData.get("post");
 
-  // TODO форма для заполнения
+  const sectionId = params.sectionId;
+  invariant(sectionId, "sectionId is missing");
+
+  if (typeof title !== "string") {
+    return json({
+      errors: { title: "Title is required", post: null, description: null },
+    });
+  }
+  if (typeof post !== "string") {
+    return json({
+      errors: { title: null, post: "Post is required", description: null },
+    });
+  }
+
+  const user = await getUser(request).catch(console.error);
+
+  if (!user?.login) {
+    return json({
+      errors: {
+        title: null,
+        post: null,
+        description: null,
+        general: "No user data found",
+      },
+    });
+  }
+
+  const newTopic = await createTopic({
+    title,
+    description,
+    post,
+    login: user.login,
+    sectionId,
+  }).catch(console.error);
+
+  if (!newTopic) throw "failed to create new topic :(";
+
+  return redirect(`/sections/${sectionId}/${newTopic.id}`);
+};
+
+const NewTopic = () => {
+  const actionData = useActionData<typeof action>();
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
+  const postRef = useRef<HTMLTextAreaElement>(null);
+
   return (
-    <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
-      <span>new topic yo</span>
+    <div className="w-full min-h-full bg-gray-50 border border-gray-300">
+      <Form
+        className="py-8 px-20 flex flex-col gap-4 w-full items-center"
+        method="post"
+      >
+        <Textfield
+          ref={titleRef}
+          id="title"
+          label="Title"
+          className="w-full"
+          required
+          autoFocus={true}
+          name="title"
+          type="title"
+          autoComplete="title"
+          aria-invalid={actionData?.errors?.title ? true : undefined}
+          aria-describedby="title-error"
+          error={actionData?.errors?.title}
+        />
+        <Textfield
+          ref={descriptionRef}
+          id="description"
+          label="Description"
+          className="w-full"
+          required
+          autoFocus={true}
+          name="description"
+          type="description"
+          autoComplete="description"
+          aria-invalid={actionData?.errors?.description ? true : undefined}
+          aria-describedby="description-error"
+          error={actionData?.errors?.description}
+        />
+        <Textarea
+          ref={postRef}
+          id="post"
+          label="Post"
+          className="w-full"
+          required
+          autoFocus={true}
+          name="post"
+          type="post"
+          rows={10}
+          aria-invalid={actionData?.errors?.post ? true : undefined}
+          aria-describedby="post-error"
+          error={actionData?.errors?.post}
+        />
+        <Button type="submit">Create new topic</Button>
+      </Form>
     </div>
   );
 };

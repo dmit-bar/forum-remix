@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import { forwardRef } from "react";
 
-interface TextfieldProps extends React.HTMLProps<HTMLInputElement> {
+interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   label?: string;
   className?: string;
   error?: string | null;
 }
 
-type TextfieldRef = HTMLInputElement;
+type TextareaRef = HTMLTextAreaElement;
 
-const Textfield = forwardRef<TextfieldRef, TextfieldProps>((props, ref) => {
+const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
   const { id, label, className, error } = props;
 
   return (
@@ -23,7 +23,7 @@ const Textfield = forwardRef<TextfieldRef, TextfieldProps>((props, ref) => {
         </label>
       )}
       <div className="mt-1">
-        <input
+        <textarea
           ref={ref}
           {...props}
           className={classNames(
@@ -42,6 +42,6 @@ const Textfield = forwardRef<TextfieldRef, TextfieldProps>((props, ref) => {
   );
 });
 
-Textfield.displayName = "Textfield";
+Textarea.displayName = "Textarea";
 
-export { Textfield };
+export { Textarea };

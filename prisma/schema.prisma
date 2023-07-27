@@ -32,7 +32,7 @@ model Topic {
   title       String
   description String?
 
-  Section   Section @relation(fields: [sectionId], references: [id])
+  Section   Section @relation(fields: [sectionId], references: [sectionId])
   sectionId String
 
   Posts Post[]
@@ -43,8 +43,8 @@ model Post {
   message        String
   isOriginalPost Boolean
 
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
+  login String
+  User  User   @relation(fields: [login], references: [login])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

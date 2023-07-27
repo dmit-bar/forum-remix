@@ -1,1 +1,2 @@
-export * from "./Section/Section";
+export * from "./SectionLink/SectionLink";
+export * from "./TopicLink/TopicLink";

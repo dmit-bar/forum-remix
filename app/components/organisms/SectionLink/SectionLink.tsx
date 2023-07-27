@@ -3,14 +3,19 @@ import classNames from "classnames";
 import { sectionIconMapper } from "~/icons/iconMapper";
 import { GeneralLink } from "../../atoms";
 
-interface SectionProps {
+interface SectionLinkProps {
   className?: string;
   title: string;
   description: string;
   link: string;
 }
 
-const Section = ({ className, title, description, link }: SectionProps) => {
+const SectionLink = ({
+  className,
+  title,
+  description,
+  link,
+}: SectionLinkProps) => {
   return (
     <section
       className={classNames("p-2 flex items-center border-gray-300", className)}
@@ -18,7 +23,6 @@ const Section = ({ className, title, description, link }: SectionProps) => {
       <Link to={link} className="mr-4">
         {sectionIconMapper(link)}
       </Link>
-
       <div className="flex flex-col">
         <div>
           <GeneralLink className="" to={link}>
@@ -31,4 +35,4 @@ const Section = ({ className, title, description, link }: SectionProps) => {
   );
 };
 
-export { Section };
+export { SectionLink };

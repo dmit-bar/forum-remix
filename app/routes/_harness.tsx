@@ -20,14 +20,10 @@ const Harness = () => {
                 action="/logout"
                 method="post"
               >
-                <GeneralLink to={"/profile"} className="text-sm">
+                <GeneralLink to={"/profile"} className="text-sm no-underline">
                   {user.login}
                 </GeneralLink>
-                <Button
-                  view="link-small"
-                  className="underline px-0 py-0"
-                  type="submit"
-                >
+                <Button view="link" className="underline text-sm" type="submit">
                   (log out)
                 </Button>
               </form>

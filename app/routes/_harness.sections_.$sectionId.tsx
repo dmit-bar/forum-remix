@@ -2,22 +2,26 @@ import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { Button } from "~/components/atoms";
+import { Button, GeneralLink } from "~/components/atoms";
 import { type Crumb } from "~/components/molecules";
+import { TopicLink } from "~/components/organisms";
 import {
   getAllTopicsForSection,
   getSectionInfo,
 } from "~/models/sections.server";
+import { getUserId } from "~/session.server";
 
-export const loader = async ({ params }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderArgs) => {
   invariant(params.sectionId, "params.sectionId is required");
+
+  const userId = await getUserId(request);
 
   const [topics, section] = await Promise.all([
     getAllTopicsForSection(params.sectionId),
     getSectionInfo(params.sectionId),
   ]);
 
-  return json({ topics, section });
+  return json({ topics, section, userLoggedIn: Boolean(userId) });
 };
 
 export const handle = {
@@ -44,6 +48,7 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
   }
 
   const { section } = data;
+
   return [
     { title: section?.title },
     {
@@ -53,29 +58,51 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
   ];
 };
 
+const CreationNotAvailable = () => (
+  <div className="text-sm italic">
+    You have to <GeneralLink to={"/login"}>log in</GeneralLink> to create new
+    topics.
+  </div>
+);
+
 const SelectedSection = () => {
-  const data = useLoaderData<typeof loader>();
+  const { topics, userLoggedIn } = useLoaderData<typeof loader>();
+
+  if (!topics.length) {
+    return (
+      <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
+        <div className="w-1/2 h-1/2 m-auto flex flex-col justify-center">
+          <div className="italic text-gray-950 text-center">
+            No topics in this section.
+          </div>
+          <div className="mx-auto mt-4">
+            {userLoggedIn ? (
+              <Link to="new-topic">
+                <Button>Create a new topic</Button>
+              </Link>
+            ) : (
+              <CreationNotAvailable />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
-      {data.topics.length ? (
-        data.topics.map((topic) => <div key={topic.id}>{topic.title}</div>)
-      ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          <div className="w-1/2 h-1/2 m-auto flex flex-col">
-            <div className="m-auto flex flex-col justify-center">
-              <span className="italic text-gray-950">
-                No topics in this section.
-              </span>
-              <div className="mx-auto mt-4">
-                <Link to="new-topic">
-                  <Button>Create a new topic</Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <div className="w-full py-1 px-2">
+        {userLoggedIn ? (
+          <Link to="new-topic">
+            <Button view="primary-small">Create a new topic</Button>
+          </Link>
+        ) : (
+          <CreationNotAvailable />
+        )}
+      </div>
+      {topics.map((topic, idx, array) => (
+        <TopicLink key={topic.id} topic={topic} />
+      ))}
     </div>
   );
 };

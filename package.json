@@ -11,7 +11,7 @@
     "dev:remix": "cross-env NODE_ENV=development remix watch",
     "dev:server": "cross-env NODE_ENV=development node --inspect --require ./node_modules/dotenv/config --require ./mocks ./build/server.js",
     "docker": "docker-compose up -d",
-    "icons": "npx @svgr/cli --out-dir public/icons -- app/icons",
+    "icons": "npx @svgr/cli --out-dir app/icons -- public/icons",
     "icons:watch": "npm-watch icons",
     "dev:svg": "run-s icons icons:watch",
     "format": "prettier --write .",

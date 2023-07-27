@@ -14,8 +14,6 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({});
 };
 
-// TODO redo everything
-
 export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const login = formData.get("login");
@@ -91,7 +89,7 @@ export default function LoginPage() {
               required
               autoFocus={true}
               name="login"
-              type="login"
+              type="username"
               autoComplete="login"
               aria-invalid={actionData?.errors?.login ? true : undefined}
               aria-describedby="login-error"
