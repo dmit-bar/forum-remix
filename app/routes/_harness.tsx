@@ -1,10 +1,11 @@
-import { Link, Outlet } from "@remix-run/react";
+import { Link, Outlet, useLocation } from "@remix-run/react";
 import { Button, GeneralLink } from "~/components/atoms";
 import { Crumbs } from "~/components/molecules";
 import { useOptionalUser } from "~/utils";
 
 const Harness = () => {
   const user = useOptionalUser();
+  const { pathname } = useLocation();
 
   return (
     <div className="w-full h-full bg-gray-700">
@@ -20,6 +21,7 @@ const Harness = () => {
                 action="/logout"
                 method="post"
               >
+                <input type="hidden" name="redirectTo" value={pathname} />
                 <GeneralLink to={"/profile"} className="text-sm no-underline">
                   {user.login}
                 </GeneralLink>
@@ -30,10 +32,10 @@ const Harness = () => {
             ) : (
               <div>
                 <div className="flex gap-2 justify-center mt-2 items-center">
-                  <Link to="/join">
+                  <Link to={`/join?redirectTo=${pathname}`}>
                     <Button view="primary-small">Sign up</Button>
                   </Link>
-                  <Link to="/login">
+                  <Link to={`/login?redirectTo=${pathname}`}>
                     <Button view="secondary-small">Log in</Button>
                   </Link>
                 </div>

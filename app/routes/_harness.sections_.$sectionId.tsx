@@ -1,6 +1,6 @@
 import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useLocation } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { Button, GeneralLink } from "~/components/atoms";
 import { type Crumb } from "~/components/molecules";
@@ -58,12 +58,20 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
   ];
 };
 
-const CreationNotAvailable = () => (
-  <div className="text-sm italic">
-    You have to <GeneralLink to={"/login"}>log in</GeneralLink> to create new
-    topics.
-  </div>
-);
+const CreationNotAvailable = () => {
+  const { pathname } = useLocation();
+
+  return (
+    <div className="text-sm italic">
+      You have to{" "}
+      <GeneralLink to={`/login?redirectTo=${pathname}`}>log in</GeneralLink> or{" "}
+      <GeneralLink to={`/join?redirectTo=${pathname}`}>
+        create an account
+      </GeneralLink>{" "}
+      in order to start new topics.
+    </div>
+  );
+};
 
 const SelectedSection = () => {
   const { topics, userLoggedIn } = useLoaderData<typeof loader>();
@@ -72,7 +80,7 @@ const SelectedSection = () => {
     return (
       <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
         <div className="w-1/2 h-1/2 m-auto flex flex-col justify-center">
-          <div className="italic text-gray-950 text-center">
+          <div className="text-gray-950 text-center">
             No topics in this section.
           </div>
           <div className="mx-auto mt-4">
