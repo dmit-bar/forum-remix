@@ -18,7 +18,7 @@ const SectionLink = ({
 }: SectionLinkProps) => {
   return (
     <section
-      className={classNames("p-2 flex items-center border-gray-300", className)}
+      className={classNames("flex items-center border-gray-300 p-2", className)}
     >
       <Link to={link} className="mr-4">
         {sectionIconMapper(link)}

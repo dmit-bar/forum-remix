@@ -106,9 +106,9 @@ const NewTopic = () => {
   const postRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="w-full min-h-full bg-gray-50 border border-gray-300">
+    <div className="min-h-full w-full border border-gray-300 bg-gray-50">
       <Form
-        className="py-8 px-20 flex flex-col gap-4 w-full items-center"
+        className="flex w-full flex-col items-center gap-4 px-20 py-8"
         method="post"
       >
         <Textfield

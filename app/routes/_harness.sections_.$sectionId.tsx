@@ -78,9 +78,9 @@ const SelectedSection = () => {
 
   if (!topics.length) {
     return (
-      <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
-        <div className="w-1/2 h-1/2 m-auto flex flex-col justify-center">
-          <div className="text-gray-950 text-center">
+      <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
+        <div className="m-auto flex h-1/2 w-1/2 flex-col justify-center">
+          <div className="text-center text-gray-950">
             No topics in this section.
           </div>
           <div className="mx-auto mt-4">
@@ -98,8 +98,8 @@ const SelectedSection = () => {
   }
 
   return (
-    <div className="w-full h-full flex bg-gray-50 flex-col border border-gray-300">
-      <div className="w-full py-1 px-2">
+    <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
+      <div className="w-full px-2 py-1">
         {userLoggedIn ? (
           <Link to="new-topic">
             <Button view="primary-small">Create a new topic</Button>

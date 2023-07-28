@@ -8,9 +8,9 @@ const Harness = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="w-full h-full bg-gray-700">
-      <div className="w-3/4 m-auto h-full flex flex-col px-4 bg-gray-100">
-        <div className="pt-2 flex w-full items-center justify-between">
+    <div className="h-full w-full bg-gray-700">
+      <div className="m-auto flex h-full w-3/4 flex-col bg-gray-100 px-4">
+        <div className="flex w-full items-center justify-between pt-2">
           <GeneralLink className="text-xl" underline={false} to="/">
             Forums
           </GeneralLink>
@@ -25,13 +25,13 @@ const Harness = () => {
                 <GeneralLink to={"/profile"} className="text-sm no-underline">
                   {user.login}
                 </GeneralLink>
-                <Button view="link" className="underline text-sm" type="submit">
+                <Button view="link" className="text-sm underline" type="submit">
                   (log out)
                 </Button>
               </form>
             ) : (
               <div>
-                <div className="flex gap-2 justify-center mt-2 items-center">
+                <div className="mt-2 flex items-center justify-center gap-2">
                   <Link to={`/join?redirectTo=${pathname}`}>
                     <Button view="primary-small">Sign up</Button>
                   </Link>
@@ -48,7 +48,7 @@ const Harness = () => {
           <Outlet />
         </main>
         <div className="flex justify-center">
-          <span className="text-sm italics text-gray-950">footer</span>
+          <span className="italics text-sm text-gray-950">footer</span>
         </div>
       </div>
     </div>

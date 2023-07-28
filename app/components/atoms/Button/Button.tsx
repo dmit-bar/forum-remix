@@ -32,21 +32,21 @@ const Button = ({
           "rounded border font-medium transition-colors",
           { "w-full": block },
           {
-            "py-1 px-4": view.includes("default"),
+            "px-4 py-1": view.includes("default"),
           },
           {
-            "text-sm py-1 px-3": view.includes("small"),
+            "px-3 py-1 text-sm": view.includes("small"),
           },
           {
             "border-transparent p-0 text-gray-950 hover:text-gray-700 active:text-gray-950":
               view.includes("link"),
           },
           {
-            "bg-red-600 border-red-700 text-gray-50 hover:bg-red-500 active:bg-red-700":
+            "border-red-700 bg-red-600 text-gray-50 hover:bg-red-500 active:bg-red-700":
               view.includes("primary"),
           },
           {
-            "bg-gray-200 border-gray-400 text-gray-950 hover:bg-gray-100 active:bg-gray-300":
+            "border-gray-400 bg-gray-200 text-gray-950 hover:bg-gray-100 active:bg-gray-300":
               view.includes("secondary"),
           }
         )}
