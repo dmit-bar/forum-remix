@@ -120,6 +120,7 @@ const NewTopic = () => {
           id="title"
           label="Title"
           className="w-full"
+          compact={true}
           required
           autoFocus={true}
           name="title"
@@ -135,6 +136,7 @@ const NewTopic = () => {
           label="Description"
           className="w-full"
           required
+          compact={true}
           autoFocus={true}
           name="description"
           type="description"
@@ -149,6 +151,7 @@ const NewTopic = () => {
           label="Post"
           className="w-full"
           required
+          compact={true}
           autoFocus={true}
           name="post"
           type="post"

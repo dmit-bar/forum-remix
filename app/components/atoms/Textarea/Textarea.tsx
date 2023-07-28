@@ -4,13 +4,14 @@ import { forwardRef } from "react";
 interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   label?: string;
   className?: string;
+  compact?: boolean;
   error?: string | null;
 }
 
 type TextareaRef = HTMLTextAreaElement;
 
 const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
-  const { id, label, className, error } = props;
+  const { id, label, className, compact, error } = props;
 
   return (
     <div className={className}>
@@ -29,7 +30,10 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
           className={classNames(
             "w-full rounded-sm border border-stone-400 bg-stone-700 px-2 py-1 font-medium",
             { "border-gray-950": !error },
-            { "border-violet-600": error }
+            { "border-violet-600": error },
+            {
+              "text-sm": compact,
+            }
           )}
         />
         {error ? (

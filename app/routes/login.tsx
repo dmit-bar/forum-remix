@@ -118,7 +118,12 @@ export default function LoginPage() {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Checkbox id="remember" name="remember" label="Remember me" />
+              <Checkbox
+                id="remember"
+                name="remember"
+                label="Remember me"
+                defaultChecked={true}
+              />
             </div>
             <div className="text-center text-sm">
               Don't have an account?{" "}

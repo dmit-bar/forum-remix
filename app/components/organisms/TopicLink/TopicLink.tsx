@@ -15,6 +15,7 @@ const TopicLink = ({ topic, lastPost, className }: TopicLinkProps) => {
     <section
       className={classNames(
         "grid grid-cols-[36px_minmax(0,_1.5fr)_minmax(0,_1fr)] gap-2 px-2 py-1 text-sm",
+        "border-b border-stone-600 last:border-0",
         className
       )}
     >
@@ -32,15 +33,15 @@ const TopicLink = ({ topic, lastPost, className }: TopicLinkProps) => {
       <div className="flex items-center gap-4">
         <div className="overflow-hidden whitespace-nowrap text-xs">
           <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-            Last post ({lastPost.updatedAt.toLocaleString()})
+            <span className="font-bold">{lastPost.login}</span>
+            {` — ${lastPost.updatedAt.toLocaleString()}`}
           </div>
           <div className="overflow-hidden whitespace-nowrap">
             <GeneralLink
               to={topic.id}
-              //view="secondary"
               className="inline overflow-hidden whitespace-nowrap"
             >
-              {`${lastPost.login}: ${lastPost.message}`}
+              {lastPost.message}
             </GeneralLink>
           </div>
         </div>

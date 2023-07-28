@@ -20,6 +20,7 @@ const SectionLink = ({
     <section
       className={classNames(
         "flex items-center border-stone-500 p-2",
+        "border-b border-stone-600 last:border-0",
         className
       )}
     >

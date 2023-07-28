@@ -44,10 +44,6 @@ const Button = ({
           {
             "hover:text-stone-400 active:text-stone-500": view.includes("link"),
           },
-          // {
-          //   "bg-violet-400 text-stone-800 hover:bg-violet-500 active:bg-violet-600":
-          //     view.includes("primary"),
-          // },
           {
             "bg-gradient-to-tl from-rose-400 to-amber-400 bg-150% text-stone-800 hover:from-rose-300 hover:to-amber-300 active:from-rose-500 active:to-amber-500":
               view.includes("primary"),

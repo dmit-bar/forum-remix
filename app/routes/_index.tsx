@@ -21,10 +21,10 @@ const Index = () => {
                 You're currently logged in as{" "}
                 <GeneralLink to="profile">{user.login}</GeneralLink>
               </div>
-              <div className="flex justify-center">
+              <div className="mt-2 flex justify-center">
                 <form action="/logout" method="post">
-                  <Button view="link-small" className="underline" type="submit">
-                    (log out)
+                  <Button view="secondary-default" type="submit">
+                    Log out
                   </Button>
                 </form>
               </div>
