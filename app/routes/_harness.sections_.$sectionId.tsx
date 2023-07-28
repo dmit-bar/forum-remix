@@ -69,7 +69,7 @@ const CreationNotAvailable = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="text-sm italic">
+    <div className="text-sm italic ">
       You have to{" "}
       <GeneralLink to={`/login?redirectTo=${pathname}`}>log in</GeneralLink> or{" "}
       <GeneralLink to={`/join?redirectTo=${pathname}`}>
@@ -85,11 +85,9 @@ const SelectedSection = () => {
 
   if (!topics.length) {
     return (
-      <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
+      <div className="flex h-full w-full flex-col">
         <div className="m-auto flex h-1/2 w-1/2 flex-col justify-center">
-          <div className="text-center text-gray-950">
-            No topics in this section.
-          </div>
+          <div className="text-center ">No topics in this section.</div>
           <div className="mx-auto mt-4">
             {userLoggedIn ? (
               <Link to="new-topic">
@@ -105,7 +103,7 @@ const SelectedSection = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
+    <div className="flex h-full w-full flex-col">
       <div className="flex w-full px-2 py-1">
         {userLoggedIn ? (
           <Link to="new-topic">

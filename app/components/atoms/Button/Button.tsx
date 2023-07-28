@@ -33,7 +33,7 @@ const Button = ({
         type={type}
         className={classNames(
           className,
-          "rounded border font-medium transition-colors",
+          "rounded font-medium transition-colors",
           { "w-full": block },
           {
             "px-4 py-1": view.includes("default"),
@@ -42,15 +42,18 @@ const Button = ({
             "px-3 py-1 text-sm": view.includes("small"),
           },
           {
-            "border-transparent p-0 text-gray-950 hover:text-gray-700 active:text-gray-950":
-              view.includes("link"),
+            "hover:text-stone-400 active:text-stone-500": view.includes("link"),
           },
+          // {
+          //   "bg-violet-400 text-stone-800 hover:bg-violet-500 active:bg-violet-600":
+          //     view.includes("primary"),
+          // },
           {
-            "border-red-700 bg-red-600 text-gray-50 hover:bg-red-500 active:bg-red-700":
+            "bg-gradient-to-tl from-rose-400 to-amber-400 bg-150% text-stone-800 hover:from-rose-300 hover:to-amber-300 active:from-rose-500 active:to-amber-500":
               view.includes("primary"),
           },
           {
-            "border-gray-400 bg-gray-200 text-gray-950 hover:bg-gray-100 active:bg-gray-300":
+            "bg-stone-300 text-stone-950 hover:bg-stone-200 active:bg-stone-400":
               view.includes("secondary"),
           }
         )}

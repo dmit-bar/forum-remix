@@ -24,11 +24,9 @@ const Crumbs = ({ className }: CrumbsProps) => {
       {crumbs.map((crumb: Crumb, idx, array) => {
         return (
           <span key={crumb.route}>
-            {idx > 0 && <span className="mx-1 text-sm text-gray-950">/</span>}
+            {idx > 0 && <span className="mx-1 text-sm">/</span>}
             {idx + 1 === array.length ? (
-              <span className="text-sm font-bold text-gray-950">
-                {crumb.title}
-              </span>
+              <span className="text-sm font-bold">{crumb.title}</span>
             ) : (
               <GeneralLink className="text-sm" to={crumb.route}>
                 {crumb.title}

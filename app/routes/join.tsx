@@ -82,7 +82,7 @@ export default function Join() {
   }, [actionData]);
 
   return (
-    <div className="flex min-h-full flex-col justify-center">
+    <div className="flex min-h-full flex-col justify-center bg-stone-800 text-stone-200">
       <div className="mx-auto w-full max-w-md px-8">
         <Form method="post" className="space-y-6">
           <div>
@@ -121,7 +121,7 @@ export default function Join() {
           </Button>
 
           <div className="flex items-center justify-center">
-            <div className="text-center text-sm text-gray-950">
+            <div className="text-center text-sm">
               Already have an account?{" "}
               <GeneralLink
                 className="font-medium"

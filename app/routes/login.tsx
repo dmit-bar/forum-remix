@@ -78,7 +78,7 @@ export default function LoginPage() {
   }, [actionData]);
 
   return (
-    <div className="flex min-h-full flex-col justify-center">
+    <div className="flex min-h-full flex-col justify-center bg-stone-800 text-stone-200">
       <div className="mx-auto w-full max-w-md px-8">
         <Form method="post" className="space-y-6">
           <div>
@@ -120,7 +120,7 @@ export default function LoginPage() {
             <div className="flex items-center">
               <Checkbox id="remember" name="remember" label="Remember me" />
             </div>
-            <div className="text-center text-sm text-gray-950">
+            <div className="text-center text-sm">
               Don't have an account?{" "}
               <GeneralLink
                 className="font-medium"

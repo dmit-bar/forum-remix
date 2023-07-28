@@ -17,7 +17,7 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
       {label && (
         <label
           htmlFor="login"
-          className="block text-sm font-medium text-gray-950"
+          className="block text-sm font-medium text-gray-200"
         >
           {label}
         </label>
@@ -27,13 +27,13 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
           ref={ref}
           {...props}
           className={classNames(
-            "w-full rounded-sm border px-2 py-1 font-medium",
+            "w-full rounded-sm border border-stone-400 bg-stone-700 px-2 py-1 font-medium",
             { "border-gray-950": !error },
-            { "border-red-600": error }
+            { "border-violet-600": error }
           )}
         />
         {error ? (
-          <div className="pt-1 text-red-700" id={`${id}-error`}>
+          <div className="pt-1 text-violet-700" id={`${id}-error`}>
             {error}
           </div>
         ) : null}

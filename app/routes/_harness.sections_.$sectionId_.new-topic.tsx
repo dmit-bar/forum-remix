@@ -1,7 +1,7 @@
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import invariant from "tiny-invariant";
 import { Button, Textarea, Textfield } from "~/components/atoms";
@@ -52,7 +52,7 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data, params }) => {
   ];
 };
 
-export const action = async ({ request, params, context }: ActionArgs) => {
+export const action = async ({ request, params }: ActionArgs) => {
   const formData = await request.formData();
   const title = formData.get("title");
   const description = formData.get("description")?.toString() || "";
@@ -105,8 +105,12 @@ const NewTopic = () => {
   const descriptionRef = useRef<HTMLInputElement>(null);
   const postRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
+
   return (
-    <div className="min-h-full w-full border border-gray-300 bg-gray-50">
+    <div className="min-h-full w-full">
       <Form
         className="flex w-full flex-col items-center gap-4 px-20 py-8"
         method="post"

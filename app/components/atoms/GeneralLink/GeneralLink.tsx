@@ -21,12 +21,11 @@ const GeneralLink = ({
         props.className,
         "font-bold transition-colors duration-100",
         {
-          "text-red-600 hover:text-red-400 active:text-red-800":
+          "bg-gradient-to-tl from-rose-400 to-amber-400 bg-200% bg-clip-text text-transparent hover:text-amber-400 active:text-rose-600":
             view === "primary",
         },
         {
-          "text-gray-950 hover:text-gray-700 active:text-gray-950":
-            view === "secondary",
+          "hover:text-gray-300 active:text-gray-400": view === "secondary",
         },
         {
           underline: underline,

@@ -13,18 +13,15 @@ const Checkbox = ({ id, name, label }: CheckboxProps) => {
   return (
     <>
       <RadixCheckbox.Root
-        className="flex h-4 w-4 appearance-none items-center justify-center rounded-sm border-2 border-red-600"
+        className="flex h-4 w-4 appearance-none items-center justify-center rounded-sm border-2 border-amber-500"
         id={id}
         name={name}
       >
-        <RadixCheckbox.Indicator className="bg-red-600">
-          <CheckIcon color={colors.gray[50]} />
+        <RadixCheckbox.Indicator className="bg-amber-500">
+          <CheckIcon color={colors.stone[800]} />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>
-      <label
-        className="select-none pl-2 text-sm leading-none text-gray-950"
-        htmlFor={id}
-      >
+      <label className="select-none pl-2 text-sm leading-none" htmlFor={id}>
         {label}
       </label>
     </>

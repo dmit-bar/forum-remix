@@ -19,10 +19,9 @@ const Sections = () => {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
-      {data.sections.map((section, idx, array) => (
+    <div className="flex h-full w-full flex-col">
+      {data.sections.map((section) => (
         <SectionLink
-          className={array.length === idx + 1 ? "border-b-0" : "border-b"}
           key={section.sectionId}
           title={section.title}
           link={section.sectionId}
