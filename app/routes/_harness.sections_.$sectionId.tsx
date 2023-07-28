@@ -1,3 +1,4 @@
+import { Pencil2Icon } from "@radix-ui/react-icons";
 import type { LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData, useLocation } from "@remix-run/react";
@@ -15,13 +16,19 @@ export const loader = async ({ request, params }: LoaderArgs) => {
   invariant(params.sectionId, "params.sectionId is required");
 
   const userId = await getUserId(request);
+  const section = await getSectionInfo(params.sectionId);
+  const topics = await getAllTopicsForSection(params.sectionId);
 
-  const [topics, section] = await Promise.all([
-    getAllTopicsForSection(params.sectionId),
-    getSectionInfo(params.sectionId),
-  ]);
+  return json({
+    topics: topics.sort((a, b) => {
+      const aDate = new Date(a.Posts[0].updatedAt);
+      const bDate = new Date(b.Posts[0].updatedAt);
 
-  return json({ topics, section, userLoggedIn: Boolean(userId) });
+      return bDate.getTime() - aDate.getTime();
+    }),
+    section,
+    userLoggedIn: Boolean(userId),
+  });
 };
 
 export const handle = {
@@ -86,7 +93,7 @@ const SelectedSection = () => {
           <div className="mx-auto mt-4">
             {userLoggedIn ? (
               <Link to="new-topic">
-                <Button>Create a new topic</Button>
+                <Button leftAddon={<Pencil2Icon />}>New topic</Button>
               </Link>
             ) : (
               <CreationNotAvailable />
@@ -99,17 +106,31 @@ const SelectedSection = () => {
 
   return (
     <div className="flex h-full w-full flex-col border border-gray-300 bg-gray-50">
-      <div className="w-full px-2 py-1">
+      <div className="flex w-full px-2 py-1">
         {userLoggedIn ? (
           <Link to="new-topic">
-            <Button view="primary-small">Create a new topic</Button>
+            <Button view="primary-small" leftAddon={<Pencil2Icon />}>
+              New topic
+            </Button>
           </Link>
         ) : (
           <CreationNotAvailable />
         )}
       </div>
-      {topics.map((topic, idx, array) => (
-        <TopicLink key={topic.id} topic={topic} />
+      {topics.map((topic) => (
+        <TopicLink
+          key={topic.id}
+          topic={{
+            ...topic,
+            createdAt: new Date(topic.createdAt),
+            updatedAt: new Date(topic.updatedAt),
+          }}
+          lastPost={{
+            ...topic.Posts[0],
+            createdAt: new Date(topic.Posts[0].createdAt),
+            updatedAt: new Date(topic.Posts[0].updatedAt),
+          }}
+        />
       ))}
     </div>
   );

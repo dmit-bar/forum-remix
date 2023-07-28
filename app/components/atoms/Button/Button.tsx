@@ -13,6 +13,8 @@ interface ButtonProps {
     | "link-default"
     | "link-small";
   className?: string;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
   children?: React.ReactNode;
 }
 
@@ -21,10 +23,12 @@ const Button = ({
   type = "button",
   view = "primary-default",
   className,
+  leftAddon,
+  rightAddon,
   children,
 }: ButtonProps) => {
   return (
-    <div className={block ? "w-full" : ""}>
+    <div className={block ? "w-full" : "w-auto"}>
       <button
         type={type}
         className={classNames(
@@ -51,7 +55,11 @@ const Button = ({
           }
         )}
       >
-        {children}
+        <div className="flex items-center justify-center">
+          {leftAddon && <div className="pr-1">{leftAddon}</div>}
+          {children}
+          {rightAddon && <div className="pl-1">{rightAddon}</div>}
+        </div>
       </button>
     </div>
   );

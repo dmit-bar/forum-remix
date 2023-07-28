@@ -21,7 +21,6 @@ export const action = async ({ request }: ActionArgs) => {
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
   const remember = formData.get("remember");
 
-  // TODO better validation
   if (!validateLogin(login)) {
     return json(
       { errors: { login: "Login is invalid", password: null } },
@@ -29,6 +28,7 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
+  // TODO better password validation
   if (typeof password !== "string" || password.length === 0) {
     return json(
       { errors: { login: null, password: "Password is required" } },

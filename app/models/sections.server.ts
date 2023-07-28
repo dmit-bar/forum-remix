@@ -12,7 +12,17 @@ const getSectionInfo = async (sectionId: string) => {
 };
 
 const getAllTopicsForSection = async (sectionId: string) => {
-  return await prisma.topic.findMany({ where: { sectionId } });
+  return await prisma.topic.findMany({
+    where: { sectionId },
+    include: {
+      Posts: {
+        orderBy: {
+          updatedAt: "desc",
+        },
+        take: 1,
+      },
+    },
+  });
 };
 
 export { getAllSections, getAllTopicsForSection, getSectionInfo };
