@@ -33,3 +33,16 @@ export async function createTopic({
 
   return newTopic;
 }
+
+export async function getTopicInfo(topicId: string) {
+  return await prisma.topic.findFirst({
+    where: { id: topicId },
+    include: {
+      Posts: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
+  });
+}

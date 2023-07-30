@@ -34,6 +34,7 @@ export const loader = async ({ request, params }: LoaderArgs) => {
 export const handle = {
   crumbs: (data: { section: { title: string; sectionId: string } }) => {
     const root: Crumb = { route: "sections", title: "Sections" };
+
     const selectedSection: Crumb = {
       route: `sections/${data.section.sectionId}`,
       title: data.section.title,
